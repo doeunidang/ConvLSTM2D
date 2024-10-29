@@ -2,7 +2,7 @@ import numpy as np
 import os
 
 # 경로 설정
-output_folder = r'F:\\ConLSTM2D_TEST\\DATA_numpy'
+output_folder = '/content/ConvLSTM2D/DATA_numpy'
 
 # 여러 개의 .npy 파일을 하나로 병합하는 함수
 def concatenate_npy_files(indices, prefix):
