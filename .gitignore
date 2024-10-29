@@ -1,3 +1,2 @@
 venv/
-*.npy
 data_test.py
