@@ -4,7 +4,7 @@ import pandas as pd
 import os
 from datetime import datetime
 
-# 파일 경로 설정 (Google Drive 경로 제거)
+# 파일 경로 설정
 shapefile_path = '/content/ConvLSTM2D/DATA_input/DEM/DEM_GRID.shp'
 rainfall_folder = '/content/ConvLSTM2D/DATA_input/RAINFALL'
 flooding_folder = '/content/ConvLSTM2D/DATA_goal'
@@ -60,18 +60,14 @@ def load_flooding_data(flooding_file_path, junction_locations, grid_size=(64, 64
     for time_step in flooding_df.index:
         flooding_row = flooding_df.loc[time_step]
         flooding_grid = np.zeros(grid_size)
-        
-        for junction in flooding_row.index:
-            if junction in junction_locations:
-                row_idx, col_idx = junction_locations[junction]
+        for junction, (row_idx, col_idx) in junction_locations.items():
+            if junction in flooding_row:
                 flooding_grid[row_idx, col_idx] = flooding_row[junction]
-        
         y_list.append(flooding_grid)
     
-    y_array = np.array(y_list)
-    return y_array
+    return np.array(y_list)
 
-def prepare_dataset(rainfall_data, flooding_data, time_steps=4):
+def prepare_dataset(rainfall_data, flooding_data, junction_locations, time_steps=4):
     X, y = [], []
     for i in range(time_steps, len(flooding_data) + time_steps):
         if len(rainfall_data) < i:
@@ -81,7 +77,12 @@ def prepare_dataset(rainfall_data, flooding_data, time_steps=4):
             continue
         past_rainfall_grid = np.array([np.full((64, 64, 1), value) for value in past_rainfall])
         X.append(np.stack(past_rainfall_grid))
-        y.append(flooding_data[i - time_steps].reshape(64, 64, 1))
+        
+        # junction별로만 flooding 값을 배치
+        flooding_grid = np.zeros((64, 64, 1))
+        for junction, (row_idx, col_idx) in junction_locations.items():
+            flooding_grid[row_idx, col_idx, 0] = flooding_data[i - time_steps][row_idx, col_idx]
+        y.append(flooding_grid)
 
     return np.stack(X) if X else np.empty((0, time_steps, 64, 64, 1)), np.array(y) if y else np.empty((0, 64, 64, 1))
 
@@ -103,7 +104,8 @@ def process_all_files():
         rainfall_data = load_rainfall_data(rainfall_file_path)
         flooding_data = load_flooding_data(flooding_file_path, junction_locations)
 
-        X, y = prepare_dataset(rainfall_data, flooding_data)
+        # 여기에서 junction_locations 인자를 추가합니다.
+        X, y = prepare_dataset(rainfall_data, flooding_data, junction_locations)
 
         np.save(os.path.join(output_folder, f"rainfall_X_{i}.npy"), X)
         np.save(os.path.join(output_folder, f"flooding_y_{i}.npy"), y)
