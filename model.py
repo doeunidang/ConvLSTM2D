@@ -22,7 +22,7 @@ def build_convlstm_model():
     model.add(BatchNormalization())
     
     # Conv2D로 변경
-    model.add(Conv2D(filters=1, kernel_size=(3, 3), activation='sigmoid', padding='same'))
+    model.add(Conv2D(filters=1, kernel_size=(3, 3), activation='linear', padding='same'))
     
     # 모델 컴파일
     model.compile(optimizer=Adam(learning_rate=0.001), loss='mse', metrics=['mae'])

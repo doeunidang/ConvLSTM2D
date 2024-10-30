@@ -47,19 +47,14 @@ def load_rainfall_data(rainfall_file_path, interval=10):
     return rainfall_df
 
 def load_flooding_data(flooding_file_path, junction_locations, grid_size=(64, 64)):
-    # Excel 파일을 읽어서 flooding_df로 설정
     flooding_df = pd.read_excel(flooding_file_path)
-    
-    # Time 열을 datetime 형식으로 변환하여 인덱스로 설정
     flooding_df['Time'] = pd.to_datetime(flooding_df['Time'])
     flooding_df.set_index('Time', inplace=True)
     
-    # 유출량 데이터를 저장할 리스트
     y_list = []
-    
     for time_step in flooding_df.index:
         flooding_row = flooding_df.loc[time_step]
-        flooding_grid = np.zeros(grid_size)
+        flooding_grid = np.zeros(grid_size)  # 초기화 후 Junction에만 할당
         for junction, (row_idx, col_idx) in junction_locations.items():
             if junction in flooding_row:
                 flooding_grid[row_idx, col_idx] = flooding_row[junction]
@@ -68,23 +63,30 @@ def load_flooding_data(flooding_file_path, junction_locations, grid_size=(64, 64
     return np.array(y_list)
 
 def prepare_dataset(rainfall_data, flooding_data, junction_locations, time_steps=4):
-    X, y = [], []
+    X, y, masks = [], [], []
+    grid_size = (64, 64, 1)
+    
     for i in range(time_steps, len(flooding_data) + time_steps):
         if len(rainfall_data) < i:
             continue
+
         past_rainfall = rainfall_data.iloc[i - time_steps:i].values.flatten()
         if len(past_rainfall) != time_steps:
             continue
-        past_rainfall_grid = np.array([np.full((64, 64, 1), value) for value in past_rainfall])
+        past_rainfall_grid = np.array([np.full(grid_size, value) for value in past_rainfall])
         X.append(np.stack(past_rainfall_grid))
+
+        flooding_grid = np.zeros(grid_size)
+        mask = np.zeros(grid_size)  # Junction 위치 마스크
         
-        # junction별로만 flooding 값을 배치
-        flooding_grid = np.zeros((64, 64, 1))
         for junction, (row_idx, col_idx) in junction_locations.items():
             flooding_grid[row_idx, col_idx, 0] = flooding_data[i - time_steps][row_idx, col_idx]
+            mask[row_idx, col_idx, 0] = 1  # Junction 위치에만 1 설정
+        
         y.append(flooding_grid)
-
-    return np.stack(X) if X else np.empty((0, time_steps, 64, 64, 1)), np.array(y) if y else np.empty((0, 64, 64, 1))
+        masks.append(mask)
+    
+    return np.stack(X), np.array(y), np.array(masks)
 
 def process_all_files():
     rainfall_files = sorted([f for f in os.listdir(rainfall_folder) if f.startswith('rainfall_event_') and f.endswith('.dat')])
@@ -104,13 +106,12 @@ def process_all_files():
         rainfall_data = load_rainfall_data(rainfall_file_path)
         flooding_data = load_flooding_data(flooding_file_path, junction_locations)
 
-        # 여기에서 junction_locations 인자를 추가합니다.
-        X, y = prepare_dataset(rainfall_data, flooding_data, junction_locations)
+        X, y, masks = prepare_dataset(rainfall_data, flooding_data, junction_locations)
 
         np.save(os.path.join(output_folder, f"rainfall_X_{i}.npy"), X)
         np.save(os.path.join(output_folder, f"flooding_y_{i}.npy"), y)
+        np.save(os.path.join(output_folder, f"mask_{i}.npy"), masks)
 
-# Colab에서 실행
 if __name__ == "__main__":
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
