@@ -1,14 +1,24 @@
 import numpy as np
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
-from model import build_convlstm_model  # ConvLSTM 모델 생성
-from utils import load_train_val_data   # 학습/검증 데이터 로드
-from losses import custom_loss          # 커스텀 손실 함수
+from model import build_convlstm_model
+from utils import load_train_val_data
+from losses import custom_loss
+from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 
+# 데이터 로드
 X_train, y_train, X_val, y_val = load_train_val_data()
+
+# 모델 생성
 model = build_convlstm_model(input_shape=(4, 64, 64, 9))
 
-model.compile(optimizer='adam', loss=custom_loss, metrics=['mae'])
+# 옵티마이저에 learning_rate 설정
+optimizer = Adam(learning_rate=0.0001)
+
+# 모델 컴파일
+model.compile(optimizer=optimizer, loss=custom_loss, metrics=['mae'])
+
+# 콜백 설정
 checkpoint = ModelCheckpoint(
     '/content/ConvLSTM2D/model/convlstm_model.keras', 
     monitor='val_loss', 
@@ -16,12 +26,14 @@ checkpoint = ModelCheckpoint(
 )
 early_stopping = EarlyStopping(
     monitor='val_loss', 
-    patience=20
+    patience=50
 )
+
+# 모델 학습
 history = model.fit(
     X_train, y_train, 
     validation_data=(X_val, y_val), 
-    epochs=50, 
-    batch_size=8,
+    epochs=100, 
+    batch_size=16,
     callbacks=[checkpoint, early_stopping]
 )

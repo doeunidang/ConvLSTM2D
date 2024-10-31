@@ -111,6 +111,10 @@ def process_all_files():
     terrain_path = os.path.join(output_folder, "terrain_data.npy")
     terrain_data, junction_mask, junction_indices = load_shapefile(shapefile_path)
     np.save(terrain_path, terrain_data)
+    
+    # junction_mask 파일 저장
+    junction_mask_path = os.path.join(output_folder, "junction_mask.npy")
+    np.save(junction_mask_path, junction_mask)
 
     for i, (rainfall_file, flooding_file) in enumerate(zip(rainfall_files, flooding_files), start=1):
         rainfall_file_path = os.path.join(rainfall_folder, rainfall_file)

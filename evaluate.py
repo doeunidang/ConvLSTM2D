@@ -62,7 +62,7 @@ def inspect_predictions(y_trues, y_preds, junction_indices, flooding_file):
             y_pred = y_pred[:, :, 0]
 
         print("\n각 junction 위치의 true값과 예측값:")
-        for j_idx, (row, col, _) in enumerate(junction_indices):  # `row`, `col`, `_` 구조로 수정
+        for j_idx, (row, col, _) in enumerate(junction_indices):
             true_value = y_true[row, col]
             pred_value = y_pred[row, col]
             print(f"Junction {j_idx+1} (위치: [{row}, {col}]) -> True: {true_value:.4f}, Predicted: {pred_value:.4f}")

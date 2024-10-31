@@ -13,13 +13,13 @@ def concatenate_npy_files(indices, prefix):
     return np.concatenate(X_list, axis=0), np.concatenate(y_list, axis=0)
 
 def load_train_val_data():
-    train_indices = range(1, 31)
+    train_indices = range(1, 201)  # 200개 학습 데이터
     X_train, y_train = concatenate_npy_files(train_indices, 'rainfall')
-    val_indices = range(31, 41)
+    val_indices = range(201, 251)  # 50개 검증 데이터
     X_val, y_val = concatenate_npy_files(val_indices, 'rainfall')
     return X_train, y_train, X_val, y_val
 
 def load_test_data():
-    test_indices = range(41, 51)
+    test_indices = range(251, 301)  # 50개 테스트 데이터
     X_test, y_test = concatenate_npy_files(test_indices, 'rainfall')
     return X_test, y_test
