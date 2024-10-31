@@ -6,19 +6,19 @@ from losses import custom_loss
 from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 
-# 데이터 로드
+# 학습 및 검증 데이터 로드
 X_train, y_train, X_val, y_val = load_train_val_data()
 
-# 모델 생성
+# ConvLSTM 모델 생성
 model = build_convlstm_model(input_shape=(4, 64, 64, 9))
 
-# 옵티마이저에 learning_rate 설정
+# Adam 옵티마이저에 학습률 설정
 optimizer = Adam(learning_rate=0.0001)
 
 # 모델 컴파일
 model.compile(optimizer=optimizer, loss=custom_loss, metrics=['mae'])
 
-# 콜백 설정
+# 콜백: 최적 모델 저장 및 조기 종료
 checkpoint = ModelCheckpoint(
     '/content/ConvLSTM2D/model/convlstm_model.keras', 
     monitor='val_loss', 
