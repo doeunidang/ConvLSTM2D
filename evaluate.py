@@ -53,8 +53,10 @@ def plot_and_save_prediction(y_trues, y_preds, output_folder="/content/ConvLSTM2
         print(f"Prediction image for {minutes_ahead} minutes ahead saved at {output_path}")
 
 # 예측 값을 검증할 수 있도록 출력
-def inspect_predictions(y_trues, y_preds, junction_indices, flooding_file):
-    print(f"\nTrue값으로 사용된 flooding 파일 이름: {flooding_file}")
+def inspect_predictions(y_trues, y_preds, junction_indices, actual_flooding_file, actual_rainfall_file):
+    print(f"\n사용된 rainfall 파일 (입력): {actual_rainfall_file}")
+    print(f"사용된 flooding 파일 (실제 값): {actual_flooding_file}\n")
+    
     for idx, (y_true, y_pred) in enumerate(zip(y_trues, y_preds)):
         minutes_ahead = (idx + 1) * 10
         print(f"\nTime Step ({minutes_ahead} Minutes Ahead)")
@@ -71,16 +73,22 @@ def inspect_predictions(y_trues, y_preds, junction_indices, flooding_file):
             print(f"Junction {j_idx+1} (위치: [{row}, {col}]) -> True: {true_value:.4f}, Predicted: {pred_value:.4f}")
 
 # 평가 함수 실행
-def evaluate(flooding_file):
+def evaluate():
     model_path = '/content/ConvLSTM2D/model/convlstm_model.keras'
     model = load_trained_model(model_path)
     X_test, y_test = load_test_data()
     junction_mask = np.load("/content/ConvLSTM2D/DATA_numpy/junction_mask.npy")
     predictions, y_trues = evaluate_model(model, X_test, y_test, junction_mask)
+    
+    # 테스트셋에서 첫 번째 예측에 대한 `rainfall` 및 `flooding` 파일 이름 불러오기
+    rainfall_file = '/content/ConvLSTM2D/DATA_input/RAINFALL/rainfall_event_251.dat'
+    flooding_file = '/content/ConvLSTM2D/DATA_goal/Junction_Flooding_251.xlsx'
+
     plot_and_save_prediction(y_trues, predictions)
     _, junction_mask, junction_indices = load_shapefile("/content/ConvLSTM2D/DATA_input/DEM/DEM_GRID.shp")
-    inspect_predictions(y_trues, predictions, junction_indices, flooding_file)
+    
+    # 예측과 실제값을 비교할 때 `rainfall_file`과 `flooding_file`을 같이 출력
+    inspect_predictions(y_trues, predictions, junction_indices, flooding_file, rainfall_file)
 
 if __name__ == "__main__":
-    flooding_file = "/content/ConvLSTM2D/DATA_goal/Junction_Flooding_example.xlsx"
-    evaluate(flooding_file)
+    evaluate()

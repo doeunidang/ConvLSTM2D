@@ -2,6 +2,7 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import os
+import re
 from datetime import datetime
 
 # 경로 설정
@@ -13,6 +14,10 @@ output_folder = '/content/ConvLSTM2D/DATA_numpy'
 # 폴더가 없을 경우 생성
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
+
+def sort_files_numerically(file_list):
+    """파일 이름에서 숫자를 추출해 정렬"""
+    return sorted(file_list, key=lambda x: int(re.search(r'\d+', x).group()))
 
 def load_shapefile(shapefile_path):
     gdf = gpd.read_file(shapefile_path)
@@ -101,8 +106,9 @@ def prepare_dataset(rainfall_data, flooding_data, junction_indices, terrain_path
     return np.stack(X), np.array(y)
 
 def process_all_files():
-    rainfall_files = sorted([f for f in os.listdir(rainfall_folder) if f.startswith('rainfall_event_') and f.endswith('.dat')])
-    flooding_files = sorted([f for f in os.listdir(flooding_folder) if f.startswith('Junction_Flooding_') and f.endswith('.xlsx')])
+    # 파일 목록을 숫자 순서로 정렬하여 불러오기
+    rainfall_files = sort_files_numerically([f for f in os.listdir(rainfall_folder) if f.startswith('rainfall_event_') and f.endswith('.dat')])
+    flooding_files = sort_files_numerically([f for f in os.listdir(flooding_folder) if f.startswith('Junction_Flooding_') and f.endswith('.xlsx')])
 
     if len(rainfall_files) != len(flooding_files):
         print("Mismatch in rainfall and flooding files.")
