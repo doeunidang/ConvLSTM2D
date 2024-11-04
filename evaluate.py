@@ -6,29 +6,25 @@ import os
 from preprocess import load_shapefile
 from losses import custom_loss
 
-# 저장된 모델을 로드
 def load_trained_model(model_path):
+    """저장된 모델을 로드하여 반환합니다."""
     model = load_model(model_path, custom_objects={"custom_loss": custom_loss})
     return model
 
-# 모델 평가 함수
 def evaluate_model(model, X_test, y_test, junction_mask):
     mask = np.logical_not(np.isnan(y_test[0]))
     y_pred_series = model.predict(X_test)
-    target_time_steps = [0, 1, 2, 3]
+    
     y_preds, y_trues = [], []
-
-    # 각 타임스텝별 예측 및 실제 값 계산
-    for t in target_time_steps:
+    for t in range(4):  # 10분, 20분, 30분, 40분 후 예측을 위해
         y_pred_t = np.zeros_like(y_test[t])
-        y_pred_t[mask] = y_pred_series[t][mask]
+        y_pred_t[mask] = y_pred_series[:, t][mask]
         y_preds.append(y_pred_t)
-        y_trues.append(y_test[t])
+        y_trues.append(y_test[:, t])
 
     return y_preds, y_trues
 
-# 예측 및 실제 값 시각화 및 저장
-def plot_and_save_prediction(y_trues, y_preds, output_folder="/content/ConvLSTM2D/results"):
+def plot_and_save_prediction(y_trues, y_preds, output_folder="F:\\ConvLSTM2D_git\\ConvLSTM2D\\results"):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     
@@ -52,7 +48,6 @@ def plot_and_save_prediction(y_trues, y_preds, output_folder="/content/ConvLSTM2
 
         print(f"Prediction image for {minutes_ahead} minutes ahead saved at {output_path}")
 
-# 예측 값을 검증할 수 있도록 출력
 def inspect_predictions(y_trues, y_preds, junction_indices, actual_flooding_file, actual_rainfall_file):
     print(f"\n사용된 rainfall 파일 (입력): {actual_rainfall_file}")
     print(f"사용된 flooding 파일 (실제 값): {actual_flooding_file}\n")
@@ -72,22 +67,18 @@ def inspect_predictions(y_trues, y_preds, junction_indices, actual_flooding_file
             pred_value = y_pred[row, col]
             print(f"Junction {j_idx+1} (위치: [{row}, {col}]) -> True: {true_value:.4f}, Predicted: {pred_value:.4f}")
 
-# 평가 함수 실행
 def evaluate():
-    model_path = '/content/ConvLSTM2D/model/convlstm_model.keras'
+    model_path = 'F:\\ConvLSTM2D_git\\ConvLSTM2D\\model\\convlstm_model.keras'
     model = load_trained_model(model_path)
     X_test, y_test = load_test_data()
-    junction_mask = np.load("/content/ConvLSTM2D/DATA_numpy/junction_mask.npy")
+    junction_mask = np.load("F:\\ConvLSTM2D_git\\ConvLSTM2D/DATA_numpy/junction_mask.npy")
     predictions, y_trues = evaluate_model(model, X_test, y_test, junction_mask)
     
-    # 테스트셋에서 첫 번째 예측에 대한 `rainfall` 및 `flooding` 파일 이름 불러오기
-    rainfall_file = '/content/ConvLSTM2D/DATA_input/RAINFALL/rainfall_event_251.dat'
-    flooding_file = '/content/ConvLSTM2D/DATA_goal/Junction_Flooding_251.xlsx'
+    rainfall_file = 'F:\\ConvLSTM2D_git\\ConvLSTM2D\\DATA_input\\RAINFALL\\rainfall_event_251.dat'
+    flooding_file = 'F:\\ConvLSTM2D_git\\ConvLSTM2D\\DATA_goal\\Junction_Flooding_251.xlsx'
 
     plot_and_save_prediction(y_trues, predictions)
-    _, junction_mask, junction_indices = load_shapefile("/content/ConvLSTM2D/DATA_input/DEM/DEM_GRID.shp")
-    
-    # 예측과 실제값을 비교할 때 `rainfall_file`과 `flooding_file`을 같이 출력
+    _, junction_mask, junction_indices = load_shapefile("F:\\ConvLSTM2D_git\\ConvLSTM2D\\DATA_input\\DEM\\DEM_GRID.shp")
     inspect_predictions(y_trues, predictions, junction_indices, flooding_file, rainfall_file)
 
 if __name__ == "__main__":

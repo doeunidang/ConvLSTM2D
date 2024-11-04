@@ -1,9 +1,13 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import ConvLSTM2D, BatchNormalization, Conv2D
+from tensorflow.keras.layers import ConvLSTM2D, BatchNormalization, Conv3D
 from tensorflow.keras.optimizers import Adam
 
 # ConvLSTM 모델 빌드 함수
-def build_convlstm_model(input_shape=(4, 64, 64, 9)):
+def build_convlstm_model(input_shape=(4, 64, 64, 5)):
+    """
+    ConvLSTM2D 기반 모델을 생성합니다.
+    input_shape: (타임스텝, 높이, 너비, 채널 수)
+    """
     model = Sequential()
     
     # ConvLSTM2D 레이어 추가
@@ -15,11 +19,7 @@ def build_convlstm_model(input_shape=(4, 64, 64, 9)):
                          padding='same', return_sequences=True))
     model.add(BatchNormalization())
     
-    model.add(ConvLSTM2D(filters=64, kernel_size=(3, 3), activation='relu',
-                         padding='same', return_sequences=False))
-    model.add(BatchNormalization())
-    
-    # 마지막 Conv2D 레이어로 단일 채널 예측
-    model.add(Conv2D(filters=1, kernel_size=(3, 3), activation=None, padding='same'))
+    # 여러 타임스텝을 예측하도록 Conv3D 레이어 사용
+    model.add(Conv3D(filters=1, kernel_size=(3, 3, 3), activation=None, padding='same'))
     
     return model
