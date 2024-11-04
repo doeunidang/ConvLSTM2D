@@ -26,7 +26,7 @@ model.compile(optimizer=optimizer, loss=custom_loss, metrics=['mae'])
 
 # 콜백 설정
 checkpoint = ModelCheckpoint(
-    'F:\\ConvLSTM2D_git\\ConvLSTM2D\\model\\convlstm_model.keras',
+    '/content/ConvLSTM2D/model/convlstm_model.keras',
     monitor='val_loss', 
     save_best_only=True
 )

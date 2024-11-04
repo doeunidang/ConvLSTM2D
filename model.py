@@ -20,6 +20,6 @@ def build_convlstm_model(input_shape=(4, 64, 64, 5)):
     model.add(BatchNormalization())
     
     # 여러 타임스텝을 예측하도록 Conv3D 레이어 사용
-    model.add(Conv3D(filters=1, kernel_size=(3, 3, 3), activation=None, padding='same'))
+    model.add(Conv3D(filters=1, kernel_size=(3, 3, 3), activation='relu', padding='same'))
     
     return model

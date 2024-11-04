@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-output_folder = r'F:\\ConvLSTM2D_git\\ConvLSTM2D\\DATA_numpy'
+output_folder = '/content/ConvLSTM2D/DATA_numpy'
 
 def concatenate_npy_files(indices, prefix):
     """지정된 인덱스의 npy 파일을 읽어 하나의 배열로 병합합니다."""

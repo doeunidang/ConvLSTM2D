@@ -6,10 +6,10 @@ import re
 from datetime import datetime
 
 # 경로 설정
-shapefile_path = r'F:\\ConvLSTM2D_git\\ConvLSTM2D\\DATA_input\\DEM\\DEM_GRID.shp'
-rainfall_folder = r'F:\\ConvLSTM2D_git\\ConvLSTM2D\\DATA_input\\RAINFALL'
-flooding_folder = r'F:\\ConvLSTM2D_git\\ConvLSTM2D\\DATA_goal'
-output_folder = r'F:\\ConvLSTM2D_git\\ConvLSTM2D\\DATA_numpy'
+shapefile_path = '/content/ConvLSTM2D/DATA_input/DEM/DEM_GRID.shp'
+rainfall_folder = '/content/ConvLSTM2D/DATA_input/RAINFALL'
+flooding_folder = '/content/ConvLSTM2D/DATA_goal'
+output_folder = '/content/ConvLSTM2D/DATA_numpy'
 
 # 데이터 저장 폴더가 없으면 생성
 if not os.path.exists(output_folder):
@@ -131,12 +131,12 @@ def process_all_files():
         print("Mismatch in rainfall and flooding files.")
         return
 
-    # 지형 데이터 및 교차점 위치 마스크 저장
+    # 지형 데이터 및 Junction 위치 마스크 저장
     terrain_path = os.path.join(output_folder, "terrain_data.npy")
     terrain_data, junction_mask, junction_indices = load_shapefile(shapefile_path)
     np.save(terrain_path, terrain_data)  # 지형 데이터 저장
     junction_mask_path = os.path.join(output_folder, "junction_mask.npy")
-    np.save(junction_mask_path, junction_mask)  # 교차점 마스크 저장
+    np.save(junction_mask_path, junction_mask)  # Junction 마스크 저장
 
     # 각 강수 및 홍수 파일 쌍에 대해 데이터셋을 생성
     for i, (rainfall_file, flooding_file) in enumerate(zip(rainfall_files, flooding_files), start=1):
