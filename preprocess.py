@@ -111,7 +111,7 @@ def prepare_dataset(rainfall_data, flooding_data, junction_indices, terrain_path
         flooding_sequence = []  # 미래 홍수 데이터를 저장할 리스트
         # 각 타임스텝에 대해 그리드 형식으로 홍수 데이터를 할당
         for t in range(time_steps):
-            flooding_grid = np.full((64, 64), np.nan)  # 홍수 데이터가 없는 경우를 위한 NaN 채우기
+            flooding_grid = np.zeros((64, 64))  # 홍수 데이터가 없는 셀은 0으로 채우기
             for (row_idx, col_idx, _), value in zip(junction_indices, future_flooding[t]):
                 flooding_grid[row_idx, col_idx] = value  # 교차점 위치에 홍수 데이터 값 할당
             flooding_sequence.append(flooding_grid.reshape(64, 64, 1))  # 형상을 맞추기 위해 채널 추가

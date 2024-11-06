@@ -67,7 +67,7 @@ def inspect_predictions(y_trues, y_preds, junction_indices, actual_flooding_file
     print(f"\n사용된 rainfall 파일 (입력): {actual_rainfall_file}")
     print(f"사용된 flooding 파일 (실제 값): {actual_flooding_file}\n")
     
-    # 64x64에서 30x30 영역의 시작 인덱스
+    # 64x64에서 10x10 영역의 시작 인덱스
     start_row = 17  # 64의 중앙에서 10x10 영역을 가져오기 위해
     start_col = 17
 
@@ -75,13 +75,13 @@ def inspect_predictions(y_trues, y_preds, junction_indices, actual_flooding_file
         minutes_ahead = (idx + 1) * 10
         print(f"\nTime Step ({minutes_ahead} Minutes Ahead)")
 
-        # 30x30 영역의 실제값과 예측값 출력
-        print("\n30x30 영역의 true값과 예측값:")
+        # 10x10 영역의 실제값과 예측값 출력
+        print("\n10x10 영역의 true값과 예측값:")
         true_values = y_true[0][start_row:start_row + 10, start_col:start_col + 10]
         pred_values = y_pred[0][start_row:start_row + 10, start_col:start_col + 10]
 
-        for row in range(30):
-            for col in range(30):
+        for row in range(10):
+            for col in range(10):
                 true_value = true_values[row, col]
                 pred_value = pred_values[row, col]
                 print(f"Location ({start_row + row}, {start_col + col}) -> True: {true_value:.4f}, Predicted: {pred_value:.4f}")
