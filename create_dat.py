@@ -66,7 +66,7 @@ for i in range(rainfall_start_idx, len(df.columns)):  # 각 열을 순회 (강�
 
 # 생성된 DAT 파일 중 하나의 내용을 확인
 if dat_files:
-    file_to_check = dat_files[21]  # 첫 번째로 생성된 파일을 확인
+    file_to_check = dat_files[250]  # 첫 번째로 생성된 파일을 확인
     print(f"\n{file_to_check} 파일 내용:")
     with open(file_to_check, 'r') as f:
         print(f.read())  # 파일 내용을 출력
