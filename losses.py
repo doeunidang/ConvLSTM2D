@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
-@tf.keras.utils.register_keras_serializable(package="Custom", name="custom_loss")
+@tf.keras.utils.register_keras_serializable(package="Custom", name="custom_mae_loss")
 def custom_loss(y_true, y_pred):
     junction_mask = np.load('/content/ConvLSTM2D/DATA_numpy/junction_mask.npy')
     junction_mask = tf.convert_to_tensor(junction_mask, dtype=tf.float32)
@@ -13,7 +13,11 @@ def custom_loss(y_true, y_pred):
     masked_y_true = y_true * mask
     masked_y_pred = y_pred * mask
 
-    squared_difference = tf.square(masked_y_true - masked_y_pred)
-    masked_squared_difference = squared_difference * mask  
+    # 절댓값 오차 계산
+    absolute_difference = tf.abs(masked_y_true - masked_y_pred)
+    masked_absolute_difference = absolute_difference * mask  
 
-    return tf.reduce_sum(masked_squared_difference) / (tf.reduce_sum(mask) + tf.keras.backend.epsilon())
+    # MAE 계산
+    return tf.reduce_sum(masked_absolute_difference) / (tf.reduce_sum(mask) + tf.keras.backend.epsilon())
+
+
