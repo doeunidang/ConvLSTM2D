@@ -141,7 +141,7 @@ for rainfall_file in rainfall_files:
             ini_depth = row['ini_depth']  # Initial Depth
             
             # Junction 작성 (이제 Subcatchment 중심이 아닌, Junction Shapefile에 있는 데이터를 사용)
-            f.write(f"{junction_id}          0           {max_depth:.3f}           {ini_depth:.3f}           0           0\n")
+            f.write(f"{junction_id}          0           {max_depth:.3f}           {ini_depth:.3f}           0           244\n")
         
         # Junction 좌표 추가
         f.write('\n[COORDINATES]\n')
