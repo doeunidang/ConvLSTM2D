@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+from matplotlib.patches import Patch
 from collections import deque
 from tensorflow.keras.models import load_model
 import os
@@ -127,24 +129,56 @@ def find_optimal_H(total_flooding, elevation_groups, cell_area, H_min, H_max, to
             H_max = H_mid
     return (H_min + H_max) / 2
 
-# 시각화 함수
 def visualize_and_save_flooded_area(grid_array, flooded_cells, sample_idx, final_H, final_depths):
+    # 플롯 생성
     plt.figure(figsize=(10, 10))
     elevation_array = grid_array['elevation'].copy()
-    elevation_array[elevation_array == 999] = -1
-    cmap = plt.get_cmap('terrain')
-    norm = plt.Normalize(vmin=-1, vmax=np.max(elevation_array[elevation_array != -1]))
+    elevation_array[elevation_array == 999] = np.nan
+    cmap = mpl.colormaps["terrain"].copy()  # Matplotlib 최신 버전에 맞게 수정
+    cmap.set_bad(color='black')
+    norm = plt.Normalize(vmin=-1, vmax=np.nanmax(elevation_array))
     plt.imshow(elevation_array, cmap=cmap, norm=norm, origin='lower')
+
+    # 침수심 정규화
+    min_inundation_H = float('inf')
+    max_inundation_H = float('-inf')
     for cx, cy in flooded_cells:
-        plt.plot(cx, cy, 'bo', markersize=5)
+        cell_elevation = grid_array[cy, cx]['elevation']
+        inundation_H = final_H - cell_elevation  # final_H를 사용하도록 수정
+        min_inundation_H = min(min_inundation_H, inundation_H)
+        max_inundation_H = max(max_inundation_H, inundation_H)
+    for cx, cy in flooded_cells:
+        cell_elevation = grid_array[cy, cx]['elevation']
+        inundation_H = final_H - cell_elevation  # final_H를 사용하도록 수정
+        normalized_inundation_H = (inundation_H - min_inundation_H) / (max_inundation_H - min_inundation_H)
+
+        # 침수심별 색상 매핑
+        if normalized_inundation_H <= 0.2:
+            color = 'cornflowerblue'
+        elif 0.2 < normalized_inundation_H <= 0.3:
+            color = 'royalblue'
+        elif 0.3 < normalized_inundation_H <= 0.5:
+            color = 'mediumblue'
+        else:
+            color = 'darkblue'
+        plt.plot(cx, cy, 's', markersize=10, color=color)
+
+    # Y축 반전 및 제목/범례 추가
     plt.gca().invert_yaxis()
     plt.title(f'Flooded Areas and Elevation Map - Sample {sample_idx}\nFlood Depth (H): {final_H:.2f}')
-    plt.xlabel('x')
-    plt.ylabel('y')
+    legend_elements = [
+        Patch(color='cornflowerblue', label='0 ~ 0.2m'),
+        Patch(color='royalblue', label='0.2 ~ 0.3m'),
+        Patch(color='mediumblue', label='0.3 ~ 0.5m'),
+        Patch(color='darkblue', label='0.5m ~')
+    ]
+    plt.legend(handles=legend_elements, loc='upper right', fontsize=10)
+
+    # 저장 경로 설정 및 이미지 저장
     image_path = os.path.join(output_folder, f'flooded_area_sample_{sample_idx}.png')
-    plt.savefig(image_path)
+    plt.savefig(image_path, dpi=300)  # 해상도를 300 DPI로 설정
     plt.close()
-    print(f'Saved flooded area visualization for sample {sample_idx} at {image_path}')
+    print(f"Saved flooded area visualization for sample {sample_idx} at {image_path}")
 
     # 고도 그룹별 침수 심도 출력 (침수된 셀들만, 음수 제외)
     for elevation, depths in final_depths.items():
@@ -168,7 +202,8 @@ def main(sample_idx=0):
     initial_flooded_cells = []
     for _, row in grid_data.iterrows():
         junction_id = row['Junction']
-        flooding_value = row[['flooding_value_1', 'flooding_value_2', 'flooding_value_3', 'flooding_value_4']].sum()
+        # t+10 값만 사용하도록 수정
+        flooding_value = row['flooding_value_4']  # t+10 값을 가져옵니다.
         
         # Junction ID 위치 찾기
         flood_cell = grid_data[grid_data['Junction'] == junction_id]
@@ -186,7 +221,7 @@ def main(sample_idx=0):
     
     # np.min 사용하여 최저 고도 값 구하기
     H_min = np.min(grid_array['elevation'])  # 최저 고도
-    H_max = 999  # 최대 고도
+    H_max = 41.68772125  # 최대 고도
     
     # 고도별로 침수 셀을 그룹화하여 elevation_groups 생성
     elevation_groups = {}
@@ -197,7 +232,8 @@ def main(sample_idx=0):
                 elevation_groups[cell_elevation] = []
             elevation_groups[cell_elevation].append((x, y))
 
-    total_flooding = y_pred_sample[0].sum()*600
+    # t+10의 값만 총유출량으로 사용
+    total_flooding = y_pred_sample[0, 3, :, :, 0].sum() * 600  # t+10의 값만 사용하여 총유출량 계산
     cell_area = 244.1406
     final_H = find_optimal_H(total_flooding, elevation_groups, cell_area, H_min, H_max)
 
