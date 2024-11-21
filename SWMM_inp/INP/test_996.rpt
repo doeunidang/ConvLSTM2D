@@ -1,0 +1,677 @@
+
+  EPA STORM WATER MANAGEMENT MODEL - VERSION 5.2 (Build 5.2.4)
+  PYSWMM TOOLKIT API - VERSION v1.0 (2023-11-27)
+  ------------------------------------------------------------
+
+  WARNING 04: minimum elevation drop used for Conduit C23
+  WARNING 04: minimum elevation drop used for Conduit C24
+  WARNING 04: minimum elevation drop used for Conduit C25
+  WARNING 04: minimum elevation drop used for Conduit C26
+  WARNING 04: minimum elevation drop used for Conduit C27
+  WARNING 04: minimum elevation drop used for Conduit C28
+  WARNING 04: minimum elevation drop used for Conduit C29
+  WARNING 04: minimum elevation drop used for Conduit C30
+  WARNING 04: minimum elevation drop used for Conduit C31
+  WARNING 04: minimum elevation drop used for Conduit C32
+  WARNING 04: minimum elevation drop used for Conduit C33
+  WARNING 04: minimum elevation drop used for Conduit C34
+  WARNING 04: minimum elevation drop used for Conduit C35
+  WARNING 04: minimum elevation drop used for Conduit C36
+  WARNING 04: minimum elevation drop used for Conduit C37
+  WARNING 04: minimum elevation drop used for Conduit C38
+  WARNING 04: minimum elevation drop used for Conduit C39
+  WARNING 04: minimum elevation drop used for Conduit C40
+  WARNING 04: minimum elevation drop used for Conduit C41
+  WARNING 04: minimum elevation drop used for Conduit C43
+  WARNING 04: minimum elevation drop used for Conduit C44
+  WARNING 04: minimum elevation drop used for Conduit C45
+  WARNING 04: minimum elevation drop used for Conduit C46
+  WARNING 04: minimum elevation drop used for Conduit C48
+  WARNING 04: minimum elevation drop used for Conduit C42
+  WARNING 04: minimum elevation drop used for Conduit C50
+  WARNING 04: minimum elevation drop used for Conduit C49
+  WARNING 04: minimum elevation drop used for Conduit C01
+  WARNING 04: minimum elevation drop used for Conduit C02
+  WARNING 04: minimum elevation drop used for Conduit C03
+  WARNING 04: minimum elevation drop used for Conduit C04
+  WARNING 04: minimum elevation drop used for Conduit C05
+  WARNING 04: minimum elevation drop used for Conduit C06
+  WARNING 04: minimum elevation drop used for Conduit C07
+  WARNING 04: minimum elevation drop used for Conduit C08
+  WARNING 04: minimum elevation drop used for Conduit C09
+  WARNING 04: minimum elevation drop used for Conduit C10
+  WARNING 04: minimum elevation drop used for Conduit C11
+  WARNING 04: minimum elevation drop used for Conduit C12
+  WARNING 04: minimum elevation drop used for Conduit C13
+  WARNING 04: minimum elevation drop used for Conduit C14
+  WARNING 04: minimum elevation drop used for Conduit C15
+  WARNING 04: minimum elevation drop used for Conduit C16
+  WARNING 04: minimum elevation drop used for Conduit C17
+  WARNING 04: minimum elevation drop used for Conduit C18
+  WARNING 04: minimum elevation drop used for Conduit C19
+  WARNING 04: minimum elevation drop used for Conduit C20
+  WARNING 04: minimum elevation drop used for Conduit C21
+  WARNING 04: minimum elevation drop used for Conduit C22
+  WARNING 04: minimum elevation drop used for Conduit C47
+  WARNING 04: minimum elevation drop used for Conduit Cout
+  
+  ****************
+  Analysis Options
+  ****************
+  Flow Units ............... CMS
+  Process Models:
+    Rainfall/Runoff ........ YES
+    RDII ................... NO
+    Snowmelt ............... NO
+    Groundwater ............ NO
+    Flow Routing ........... YES
+    Ponding Allowed ........ NO
+    Water Quality .......... NO
+  Infiltration Method ...... HORTON
+  Flow Routing Method ...... DYNWAVE
+  Surcharge Method ......... EXTRAN
+  Starting Date ............ 02/20/2023 13:00:00
+  Ending Date .............. 02/20/2023 13:40:00
+  Antecedent Dry Days ...... 0.0
+  Report Time Step ......... 00:10:00
+  Wet Time Step ............ 00:05:00
+  Dry Time Step ............ 01:00:00
+  Routing Time Step ........ 300.00 sec
+  Variable Time Step ....... YES
+  Maximum Trials ........... 8
+  Number of Threads ........ 1
+  Head Tolerance ........... 0.001524 m
+  
+  
+  *********************
+  Rainfall File Summary
+  *********************
+  Station    First        Last         Recording   Periods    Periods    Periods
+  ID         Date         Date         Frequency  w/Precip    Missing    Malfunc.
+  -------------------------------------------------------------------------------
+  996        02/20/2023   02/20/2023      10 min         5          0          0
+
+  
+  
+  **************************        Volume         Depth
+  Runoff Quantity Continuity     hectare-m            mm
+  **************************     ---------       -------
+  Total Precipitation ......        81.277       812.800
+  Evaporation Loss .........         0.000         0.000
+  Infiltration Loss ........         0.000         0.000
+  Surface Runoff ...........        76.089       760.916
+  Final Storage ............         6.463        64.631
+  Continuity Error (%) .....        -1.568
+  
+  
+  **************************        Volume        Volume
+  Flow Routing Continuity        hectare-m      10^6 ltr
+  **************************     ---------     ---------
+  Dry Weather Inflow .......         0.000         0.000
+  Wet Weather Inflow .......        72.001       720.014
+  Groundwater Inflow .......         0.000         0.000
+  RDII Inflow ..............         0.000         0.000
+  External Inflow ..........         0.000         0.000
+  External Outflow .........         1.664        16.641
+  Flooding Loss ............        69.985       699.854
+  Evaporation Loss .........         0.000         0.000
+  Exfiltration Loss ........         0.000         0.000
+  Initial Stored Volume ....         0.046         0.463
+  Final Stored Volume ......         1.883        18.831
+  Continuity Error (%) .....        -2.061
+  
+  
+  *************************
+  Highest Continuity Errors
+  *************************
+  Node J30 (-101.87%)
+  Node J17 (60.75%)
+  Node J3 (-51.49%)
+  Node J18 (-20.12%)
+  Node J28 (-14.92%)
+  
+  
+  ***************************
+  Time-Step Critical Elements
+  ***************************
+  Link Cout (93.63%)
+  Link C06 (1.27%)
+  
+  
+  ********************************
+  Highest Flow Instability Indexes
+  ********************************
+  Link C14 (7)
+  Link C28 (4)
+  Link C13 (4)
+  Link C27 (4)
+  Link C20 (4)
+  
+  
+  *********************************
+  Most Frequent Nonconverging Nodes
+  *********************************
+  Node OF (6.37%)
+  Node J16 (4.46%)
+  Node J8 (3.82%)
+  Node J23 (3.82%)
+  Node J9 (3.82%)
+  
+  
+  *************************
+  Routing Time Step Summary
+  *************************
+  Minimum Time Step           :     0.22 sec
+  Average Time Step           :    15.29 sec
+  Maximum Time Step           :   300.00 sec
+  % of Time in Steady State   :     0.00
+  Average Iterations per Step :     2.43
+  % of Steps Not Converging   :     6.37
+  Time Step Frequencies       :
+     300.000 - 83.462 sec      :     0.65 %
+     83.462 - 23.220 sec      :     0.00 %
+     23.220 -  6.460 sec      :    98.06 %
+      6.460 -  1.797 sec      :     1.29 %
+      1.797 -  0.500 sec      :     0.00 %
+  
+  
+  ***************************
+  Subcatchment Runoff Summary
+  ***************************
+  
+  ------------------------------------------------------------------------------------------------------------------------------
+                            Total      Total      Total      Total     Imperv       Perv      Total       Total     Peak  Runoff
+                           Precip      Runon       Evap      Infil     Runoff     Runoff     Runoff      Runoff   Runoff   Coeff
+  Subcatchment                 mm         mm         mm         mm         mm         mm         mm    10^6 ltr      CMS
+  ------------------------------------------------------------------------------------------------------------------------------
+  S1                       812.80       0.00       0.00       0.00       8.05     804.75     812.80      205.04   208.26   1.000
+  S2                       812.80       0.00       0.00       0.00       7.40     801.89     809.29        6.29     6.41   0.996
+  S3                       812.80       0.00       0.00       0.00       7.40     805.40     812.80        1.68     1.71   1.000
+  S4                       812.80       0.00       0.00       0.00       7.40     805.40     812.80        1.67     1.69   1.000
+  S5                       812.80       0.00       0.00       0.00       7.40     805.40     812.80        2.43     2.47   1.000
+  S6                       812.80       0.00       0.00       0.00       7.40     805.40     812.80        6.70     6.80   1.000
+  S7                       812.80       0.00       0.00       0.00       7.40     805.40     812.80        1.26     1.28   1.000
+  S8                       812.80       0.00       0.00       0.00       7.40     805.40     812.80        3.96     4.02   1.000
+  S9                       812.80       0.00       0.00       0.00       7.40     805.40     812.80        4.89     4.97   1.000
+  S10                      812.80       0.00       0.00       0.00       0.00     805.40     805.40        1.14     1.15   0.991
+  S11                      812.80       0.00       0.00       0.00       7.40     766.75     774.14       11.33    11.99   0.952
+  S12                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        7.06     7.17   1.000
+  S13                      812.80       0.00       0.00       0.00       0.00     805.40     805.40        6.80     6.90   0.991
+  S14                      812.80       0.00       0.00       0.00       6.83     805.97     812.80        6.53     6.63   1.000
+  S15                      812.80       0.00       0.00       0.00       6.83     805.97     812.80        6.10     6.19   1.000
+  S16                      812.80       0.00       0.00       0.00       6.26     795.14     801.40       14.15    14.58   0.986
+  S17                      812.80       0.00       0.00       0.00       6.26     710.32     716.58       24.40    26.39   0.882
+  S18                      812.80       0.00       0.00       0.00       6.26     806.47     812.73        1.05     1.06   1.000
+  S19                      812.80       0.00       0.00       0.00       6.26       0.00       6.26        0.02     0.02   0.008
+  S20                      812.80       0.00       0.00       0.00       6.26     806.49     812.75        0.83     0.84   1.000
+  S21                      812.80       0.00       0.00       0.00       6.26     783.36     789.62       13.09    13.67   0.971
+  S22                      812.80       0.00       0.00       0.00       6.26     806.49     812.75        0.27     0.27   1.000
+  S23                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        0.32     0.32   1.000
+  S24                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        0.40     0.40   1.000
+  S25                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        0.48     0.49   1.000
+  S26                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        0.56     0.57   1.000
+  S27                      812.80       0.00       0.00       0.00       6.26     805.47     811.73        6.75     6.86   0.999
+  S28                      812.80       0.00       0.00       0.00       6.26     785.46     791.72        7.03     7.32   0.974
+  S29                      812.80       0.00       0.00       0.00       6.26     806.49     812.75        0.75     0.76   1.000
+  S30                      812.80       0.00       0.00       0.00       6.26     680.54     686.80       43.75    47.26   0.845
+  S31                      812.80       0.00       0.00       0.00       6.50     806.30     812.80       11.01    11.19   1.000
+  S32                      812.80       0.00       0.00       0.00       6.50     806.30     812.80        3.39     3.44   1.000
+  S33                      812.80       0.00       0.00       0.00       7.64     805.16     812.80        2.53     2.57   1.000
+  S34                      812.80       0.00       0.00       0.00       7.64     805.16     812.80        2.67     2.72   1.000
+  S35                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        3.27     3.32   1.000
+  S36                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        1.34     1.36   1.000
+  S37                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        2.93     2.97   1.000
+  S38                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        0.13     0.13   1.000
+  S39                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        3.33     3.38   1.000
+  S40                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        1.15     1.16   1.000
+  S41                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        1.85     1.87   1.000
+  S42                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        2.57     2.61   1.000
+  S43                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        5.85     5.94   1.000
+  S44                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        4.24     4.31   1.000
+  S45                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        0.43     0.44   1.000
+  S46                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        3.93     4.00   1.000
+  S47                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        7.95     8.07   1.000
+  S48                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        9.18     9.33   1.000
+  S49                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        5.58     5.67   1.000
+  S50                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        4.60     4.67   1.000
+  S51                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        2.71     2.76   1.000
+  S52                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        7.19     7.31   1.000
+  S53                      812.80       0.00       0.00       0.00       7.40     785.20     792.59        9.65    10.04   0.975
+  S54                      812.80       0.00       0.00       0.00       7.40     800.33     807.72        3.69     3.77   0.994
+  S55                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        0.31     0.31   1.000
+  S56                      812.80       0.00       0.00       0.00       7.40     805.37     812.76        0.31     0.31   1.000
+  S57                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        4.20     4.27   1.000
+  S58                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        5.40     5.48   1.000
+  S59                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        5.24     5.33   1.000
+  S60                      812.80       0.00       0.00       0.00       6.26     803.77     810.03        3.18     3.24   0.997
+  S61                      812.80       0.00       0.00       0.00       6.26       0.00       6.26        0.02     0.02   0.008
+  S62                      812.80       0.00       0.00       0.00       6.26     658.74     665.00       35.64    38.34   0.818
+  S63                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        7.64     7.76   1.000
+  S64                      812.80       0.00       0.00       0.00       6.26     806.54     812.80       20.69    21.01   1.000
+  S65                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        3.30     3.35   1.000
+  S66                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        5.32     5.41   1.000
+  S67                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        9.95    10.11   1.000
+  S68                      812.80       0.00       0.00       0.00       6.26     806.54     812.80       11.66    11.85   1.000
+  S69                      812.80       0.00       0.00       0.00       6.26       0.00       6.26        0.16     0.16   0.008
+  S70                      812.80       0.00       0.00       0.00       6.26     782.38     788.64       20.64    21.56   0.970
+  S71                      812.80       0.00       0.00       0.00       7.40     805.40     812.80       11.96    12.14   1.000
+  S72                      812.80       0.00       0.00       0.00       6.26     796.88     803.14        3.98     4.09   0.988
+  S73                      812.80       0.00       0.00       0.00       6.26     806.54     812.80       17.04    17.30   1.000
+  S74                      812.80       0.00       0.00       0.00       6.26       0.00       6.26        0.04     0.04   0.008
+  S75                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        0.54     0.55   1.000
+  S76                      812.80       0.00       0.00       0.00       6.26     806.54     812.80       10.74    10.91   1.000
+  S77                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        8.69     8.83   1.000
+  S78                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        6.30     6.40   1.000
+  S79                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        5.52     5.61   1.000
+  S80                      812.80       0.00       0.00       0.00       6.26     805.58     811.84        2.24     2.28   0.999
+  S81                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        9.19     9.34   1.000
+  S82                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        8.97     9.11   1.000
+  S83                      812.80       0.00       0.00       0.00       6.26     806.54     812.80        5.77     5.86   1.000
+  S84                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        3.77     3.83   1.000
+  S85                      812.80       0.00       0.00       0.00       7.40     789.59     796.98        9.85    10.20   0.981
+  S86                      812.80       0.00       0.00       0.00       0.00     805.40     805.40        9.32     9.47   0.991
+  S87                      812.80       0.00       0.00       0.00       7.40     805.40     812.80       10.10    10.25   1.000
+  S88                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        1.82     1.85   1.000
+  S89                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        8.22     8.35   1.000
+  S90                      812.80       0.00       0.00       0.00       0.00     805.40     805.40        3.95     4.02   0.991
+  S91                      812.80       0.00       0.00       0.00       7.40     805.40     812.80        1.34     1.36   1.000
+  
+  
+  ******************
+  Node Depth Summary
+  ******************
+  
+  ---------------------------------------------------------------------------------
+                                 Average  Maximum  Maximum  Time of Max    Reported
+                                   Depth    Depth      HGL   Occurrence   Max Depth
+  Node                 Type       Meters   Meters   Meters  days hr:min      Meters
+  ---------------------------------------------------------------------------------
+  J7                   JUNCTION     2.43     2.50     2.50     0  00:05        2.50
+  J13                  JUNCTION     2.45     2.50     2.50     0  00:06        2.50
+  J19                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J25                  JUNCTION     2.45     2.50     2.50     0  00:05        2.50
+  J1                   JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J2                   JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J3                   JUNCTION     2.47     2.50     2.50     0  00:05        2.50
+  J4                   JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J5                   JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J6                   JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J8                   JUNCTION     2.47     2.50     2.50     0  00:05        2.50
+  J9                   JUNCTION     2.46     2.50     2.50     0  00:05        2.50
+  J10                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J11                  JUNCTION     2.46     2.50     2.50     0  00:05        2.50
+  J12                  JUNCTION     2.46     2.50     2.50     0  00:05        2.50
+  J14                  JUNCTION     2.46     2.50     2.50     0  00:05        2.50
+  J15                  JUNCTION     2.45     2.50     2.50     0  00:05        2.50
+  J16                  JUNCTION     2.47     2.50     2.50     0  00:06        2.50
+  J17                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J18                  JUNCTION     2.46     2.50     2.50     0  00:05        2.50
+  J20                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J21                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J22                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J23                  JUNCTION     2.47     2.50     2.50     0  00:05        2.50
+  J24                  JUNCTION     2.40     2.50     2.50     0  00:05        2.50
+  J26                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J27                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J29                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J30                  JUNCTION     2.42     2.50     2.50     0  00:06        2.50
+  J31                  JUNCTION     2.43     2.50     2.50     0  00:06        2.50
+  J33                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J32                  JUNCTION     2.48     2.50     2.50     0  00:05        2.50
+  J28                  JUNCTION     2.46     2.50     2.50     0  00:05        2.50
+  OF                   OUTFALL      1.36     1.41     1.41     0  00:05        1.37
+  
+  
+  *******************
+  Node Inflow Summary
+  *******************
+  
+  -------------------------------------------------------------------------------------------------
+                                  Maximum  Maximum                  Lateral       Total        Flow
+                                  Lateral    Total  Time of Max      Inflow      Inflow     Balance
+                                   Inflow   Inflow   Occurrence      Volume      Volume       Error
+  Node                 Type           CMS      CMS  days hr:min    10^6 ltr    10^6 ltr     Percent
+  -------------------------------------------------------------------------------------------------
+  J7                   JUNCTION    52.006   52.255     0  00:30        45.2        46.3       0.462
+  J13                  JUNCTION     4.710    4.977     0  00:25        4.36        5.41     -12.224
+  J19                  JUNCTION   223.206  223.206     0  00:30         209         209       0.568
+  J25                  JUNCTION    26.391   26.843     0  00:30        22.7        24.8       0.428
+  J1                   JUNCTION    18.737   19.031     0  00:25        17.5        20.2       4.701
+  J2                   JUNCTION    14.076   14.364     0  00:25        13.2        14.2       0.489
+  J3                   JUNCTION     0.627   11.299     0  00:05       0.587        3.15     -33.991
+  J4                   JUNCTION    40.759   43.543     0  00:05        38.1        47.1       6.265
+  J5                   JUNCTION    33.701   34.020     0  00:25        31.5        36.2      10.872
+  J6                   JUNCTION    14.745   15.242     0  00:25        13.8          17      11.141
+  J8                   JUNCTION    22.687   22.957     0  00:25        21.2        22.9      -1.528
+  J9                   JUNCTION    10.200   10.584     0  00:30        9.34        11.2      -5.710
+  J10                  JUNCTION    15.224   15.725     0  00:25        14.2          18       6.908
+  J11                  JUNCTION    16.356   16.944     0  00:25        15.3          17     -10.849
+  J12                  JUNCTION    17.304   17.601     0  00:25        16.2        17.6      -0.064
+  J14                  JUNCTION    14.663   14.947     0  00:25        13.7        14.6      -6.429
+  J15                  JUNCTION    20.976   21.694     0  00:30        19.4        22.3      -6.384
+  J16                  JUNCTION    12.144   12.430     0  00:25        11.4        12.5      -4.959
+  J17                  JUNCTION     0.158   14.966     0  00:05       0.148        3.76     154.758
+  J18                  JUNCTION     0.553    4.360     0  00:05       0.517        2.61     -16.747
+  J20                  JUNCTION    40.931   41.118     0  00:30        37.8        39.4       3.542
+  J21                  JUNCTION    13.534   14.060     0  00:25        12.7        16.1       6.104
+  J22                  JUNCTION    27.756   27.969     0  00:30        25.3        26.1       0.710
+  J23                  JUNCTION    14.578   15.025     0  00:30        13.4        15.1       0.716
+  J24                  JUNCTION     1.922    9.287     0  00:05         1.8        3.89       7.679
+  J26                  JUNCTION    11.955   12.222     0  00:25        11.2          12      -0.973
+  J27                  JUNCTION    10.485   10.746     0  00:25        9.78        10.8      -2.030
+  J29                  JUNCTION    17.197   17.782     0  00:25        16.1        20.5       5.316
+  J30                  JUNCTION     0.000    7.076     0  00:06           0        2.29     -50.463
+  J31                  JUNCTION    47.260   47.498     0  00:30        40.4        41.4      -0.971
+  J33                  JUNCTION    16.921   17.188     0  00:25        15.8        17.3       2.540
+  J32                  JUNCTION     7.719    8.019     0  00:25        7.22        8.67      -5.418
+  J28                  JUNCTION    12.343   12.855     0  00:25        11.5        13.1     -12.984
+  OF                   OUTFALL      0.000    7.966     0  00:05           0        16.6       0.000
+  
+  
+  **********************
+  Node Surcharge Summary
+  **********************
+  
+  Surcharging occurs when water rises above the top of the highest conduit.
+  ---------------------------------------------------------------------
+                                               Max. Height   Min. Depth
+                                   Hours       Above Crown    Below Rim
+  Node                 Type      Surcharged         Meters       Meters
+  ---------------------------------------------------------------------
+  J7                   JUNCTION        0.65          0.850        0.000
+  J13                  JUNCTION        0.66          0.850        0.000
+  J19                  JUNCTION        0.67          0.850        0.000
+  J25                  JUNCTION        0.66          0.850        0.000
+  J1                   JUNCTION        0.67          0.850        0.000
+  J2                   JUNCTION        0.67          0.850        0.000
+  J3                   JUNCTION        0.67          0.850        0.000
+  J4                   JUNCTION        0.67          0.850        0.000
+  J5                   JUNCTION        0.67          0.850        0.000
+  J6                   JUNCTION        0.67          0.850        0.000
+  J8                   JUNCTION        0.67          0.850        0.000
+  J9                   JUNCTION        0.66          0.850        0.000
+  J10                  JUNCTION        0.67          0.850        0.000
+  J11                  JUNCTION        0.66          0.850        0.000
+  J12                  JUNCTION        0.67          0.850        0.000
+  J14                  JUNCTION        0.66          0.850        0.000
+  J15                  JUNCTION        0.66          0.850        0.000
+  J16                  JUNCTION        0.67          0.850        0.000
+  J17                  JUNCTION        0.67          0.850        0.000
+  J18                  JUNCTION        0.66          0.850        0.000
+  J20                  JUNCTION        0.67          0.850        0.000
+  J21                  JUNCTION        0.67          0.850        0.000
+  J22                  JUNCTION        0.67          0.850        0.000
+  J23                  JUNCTION        0.67          0.850        0.000
+  J24                  JUNCTION        0.57          0.850        0.000
+  J26                  JUNCTION        0.67          0.850        0.000
+  J27                  JUNCTION        0.67          0.850        0.000
+  J29                  JUNCTION        0.67          0.850        0.000
+  J30                  JUNCTION        0.65          0.850        0.000
+  J31                  JUNCTION        0.65          0.850        0.000
+  J33                  JUNCTION        0.67          0.850        0.000
+  J32                  JUNCTION        0.67          0.850        0.000
+  J28                  JUNCTION        0.66          0.850        0.000
+  
+  
+  *********************
+  Node Flooding Summary
+  *********************
+  
+  Flooding refers to all water that overflows a node, whether it ponds or not.
+  --------------------------------------------------------------------------
+                                                             Total   Maximum
+                                 Maximum   Time of Max       Flood    Ponded
+                        Hours       Rate    Occurrence      Volume     Depth
+  Node                 Flooded       CMS   days hr:min    10^6 ltr    Meters
+  --------------------------------------------------------------------------
+  J7                      0.65    51.868      0  00:30      45.141     0.000
+  J13                     0.56     4.707      0  00:30       4.245     0.000
+  J19                     0.67   215.601      0  00:30     190.097     0.000
+  J25                     0.65    26.553      0  00:30      23.813     0.000
+  J1                      0.67    18.518      0  00:30      18.342     0.000
+  J2                      0.66    13.851      0  00:30      12.149     0.000
+  J3                      0.58     0.699      0  00:25       0.713     0.000
+  J4                      0.67    40.857      0  00:25      44.060     0.000
+  J5                      0.58    33.057      0  00:30      29.126     0.000
+  J6                      0.58    14.672      0  00:30      13.258     0.000
+  J8                      0.57    22.436      0  00:30      19.705     0.000
+  J9                      0.57    10.115      0  00:30       8.847     0.000
+  J10                     0.58    15.257      0  00:25      13.906     0.000
+  J11                     0.57    16.663      0  00:25      15.819     0.000
+  J12                     0.57    17.102      0  00:30      15.050     0.000
+  J14                     0.57    14.475      0  00:30      12.870     0.000
+  J15                     0.57    21.461      0  00:30      21.054     0.000
+  J16                     0.57    11.834      0  00:30      10.173     0.000
+  J17                     0.50    12.126      0  00:05       0.424     0.000
+  J18                     0.34     1.011      0  00:05       0.278     0.000
+  J20                     0.58    40.899      0  00:30      37.240     0.000
+  J21                     0.67    13.805      0  00:25      15.406     0.000
+  J22                     0.66    27.501      0  00:30      24.303     0.000
+  J23                     0.65    14.767      0  00:30      13.764     0.000
+  J24                     0.57     7.712      0  00:05       3.608     0.000
+  J26                     0.58    11.933      0  00:30      10.719     0.000
+  J27                     0.58    10.386      0  00:30       9.209     0.000
+  J29                     0.57    17.175      0  00:30      15.530     0.000
+  J30                     0.56     6.528      0  00:06       2.157     0.000
+  J31                     0.56    47.348      0  00:30      41.165     0.000
+  J33                     0.67    17.186      0  00:25      17.275     0.000
+  J32                     0.57     7.502      0  00:30       6.363     0.000
+  J28                     0.58    12.551      0  00:25      11.796     0.000
+  
+  
+  ***********************
+  Outfall Loading Summary
+  ***********************
+  
+  -----------------------------------------------------------
+                         Flow       Avg       Max       Total
+                         Freq      Flow      Flow      Volume
+  Outfall Node           Pcnt       CMS       CMS    10^6 ltr
+  -----------------------------------------------------------
+  OF                   100.00     7.316     7.966      16.641
+  -----------------------------------------------------------
+  System               100.00     7.316     7.966      16.641
+  
+  
+  ********************
+  Link Flow Summary
+  ********************
+  
+  -----------------------------------------------------------------------------
+                                 Maximum  Time of Max   Maximum    Max/    Max/
+                                  |Flow|   Occurrence   |Veloc|    Full    Full
+  Link                 Type          CMS  days hr:min     m/sec    Flow   Depth
+  -----------------------------------------------------------------------------
+  P1                   PUMP        0.000     0  00:00                          
+  C23                  CONDUIT     2.018     0  00:05      0.94   17.56    1.00
+  C24                  CONDUIT     3.098     0  00:05      1.45   26.83    1.00
+  C25                  CONDUIT     4.457     0  00:05      2.08   35.61    1.00
+  C26                  CONDUIT     5.898     0  00:05      2.76   46.14    1.00
+  C27                  CONDUIT     2.909     0  00:05      1.36   23.93    1.00
+  C28                  CONDUIT     2.419     0  00:05      1.13   16.67    1.00
+  C29                  CONDUIT     1.849     0  00:05      0.86   13.02    1.00
+  C30                  CONDUIT     7.644     0  00:05      3.57   67.16    1.00
+  C31                  CONDUIT     3.234     0  00:05      1.51   28.31    1.00
+  C32                  CONDUIT    11.235     0  00:05      5.25   72.62    1.00
+  C33                  CONDUIT    22.076     0  00:05     10.32  129.16    1.00
+  C34                  CONDUIT     6.856     0  00:05      3.21   54.56    1.00
+  C35                  CONDUIT     0.519     0  00:05      0.24    5.52    1.00
+  C36                  CONDUIT     2.207     0  00:05      1.03   20.82    1.00
+  C37                  CONDUIT     2.058     0  00:05      0.99   14.13    1.00
+  C38                  CONDUIT     1.608     0  00:05      0.75   11.21    1.00
+  C39                  CONDUIT     0.271     0  00:05      0.13    1.72    1.00
+  C40                  CONDUIT     1.303     0  00:05      0.61    9.29    1.00
+  C41                  CONDUIT     2.460     0  00:05      1.15   19.08    1.00
+  C43                  CONDUIT     3.725     0  00:05      1.74   28.41    1.00
+  C44                  CONDUIT     9.642     0  00:05      4.51   82.31    1.00
+  C45                  CONDUIT     5.898     0  00:05      2.76   50.60    1.00
+  C46                  CONDUIT     1.685     0  00:06      0.83   13.96    1.00
+  C48                  CONDUIT     3.941     0  00:05      1.84   31.12    1.00
+  C42                  CONDUIT     8.409     0  00:05      3.93   66.67    1.00
+  C50                  CONDUIT     2.453     0  00:05      1.15   23.70    1.00
+  C49                  CONDUIT     3.554     0  00:05      1.66   31.02    1.00
+  C01                  CONDUIT     0.988     0  00:05      0.46    8.12    1.00
+  C02                  CONDUIT     0.930     0  00:06      0.43    7.36    1.00
+  C03                  CONDUIT     1.103     0  00:05      0.52    8.81    1.00
+  C04                  CONDUIT     3.539     0  00:05      1.66   27.83    1.00
+  C05                  CONDUIT     5.080     0  00:05      2.67   40.51    1.00
+  C06                  CONDUIT     5.883     0  00:05      2.75   51.66    1.00
+  C07                  CONDUIT     9.831     0  00:05      4.60   86.23    1.00
+  C08                  CONDUIT     1.549     0  00:05      0.72   12.68    1.00
+  C09                  CONDUIT     1.698     0  00:05      0.79   14.86    1.00
+  C10                  CONDUIT     2.308     0  00:05      1.08   18.41    1.00
+  C11                  CONDUIT     1.976     0  00:05      0.92   17.36    1.00
+  C12                  CONDUIT     1.469     0  00:05      0.69   12.65    1.00
+  C13                  CONDUIT     1.521     0  00:05      0.71   13.23    1.00
+  C14                  CONDUIT     3.850     0  00:05      1.80   30.58    1.00
+  C15                  CONDUIT     7.650     0  00:05      3.58   60.79    1.00
+  C16                  CONDUIT     4.426     0  00:05      2.19   38.85    1.00
+  C17                  CONDUIT     3.450     0  00:05      1.61   30.45    1.00
+  C18                  CONDUIT     9.758     0  00:05      4.56   86.74    1.00
+  C19                  CONDUIT     2.517     0  00:06      1.21   20.00    1.00
+  C20                  CONDUIT     4.303     0  00:05      2.01   38.31    1.00
+  C21                  CONDUIT     5.134     0  00:05      2.40   48.50    1.00
+  C22                  CONDUIT     2.264     0  00:05      1.06   17.87    1.00
+  C47                  CONDUIT     3.878     0  00:05      1.81   39.86    1.00
+  Cout                 CONDUIT     7.966     0  00:05      3.85   62.91    0.93
+  
+  
+  ***************************
+  Flow Classification Summary
+  ***************************
+  
+  -------------------------------------------------------------------------------------
+                      Adjusted    ---------- Fraction of Time in Flow Class ---------- 
+                       /Actual         Up    Down  Sub   Sup   Up    Down  Norm  Inlet 
+  Conduit               Length    Dry  Dry   Dry   Crit  Crit  Crit  Crit  Ltd   Ctrl  
+  -------------------------------------------------------------------------------------
+  C23                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C24                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C25                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.01  0.00
+  C26                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C27                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C28                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C29                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C30                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C31                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.01  0.00
+  C32                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C33                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.01  0.00
+  C34                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C35                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C36                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C37                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C38                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C39                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C40                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C41                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C43                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C44                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C45                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C46                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C48                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C42                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C50                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C49                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C01                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C02                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C03                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C04                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C05                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C06                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C07                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C08                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C09                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C10                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.01  0.00
+  C11                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.01  0.00
+  C12                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C13                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C14                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C15                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C16                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C17                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C18                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C19                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C20                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  C21                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.01  0.00
+  C22                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.01  0.00
+  C47                     1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  Cout                    1.00   0.00  0.00  0.00  1.00  0.00  0.00  0.00  0.00  0.00
+  
+  
+  *************************
+  Conduit Surcharge Summary
+  *************************
+  
+  ----------------------------------------------------------------------------
+                                                           Hours        Hours 
+                         --------- Hours Full --------   Above Full   Capacity
+  Conduit                Both Ends  Upstream  Dnstream   Normal Flow   Limited
+  ----------------------------------------------------------------------------
+  C23                         0.65      0.65      0.66      0.58         0.01
+  C24                         0.67      0.67      0.67      0.67         0.01
+  C25                         0.66      0.66      0.67      0.58         0.09
+  C26                         0.66      0.67      0.66      0.67         0.08
+  C27                         0.66      0.67      0.66      0.67         0.01
+  C28                         0.66      0.66      0.66      0.67         0.01
+  C29                         0.67      0.67      0.67      0.58         0.01
+  C30                         0.67      0.67      0.67      0.67         0.01
+  C31                         0.66      0.66      0.67      0.67         0.01
+  C32                         0.66      0.66      0.66      0.64         0.08
+  C33                         0.66      0.66      0.67      0.54         0.01
+  C34                         0.67      0.67      0.67      0.67         0.09
+  C35                         0.67      0.67      0.67      0.67         0.08
+  C36                         0.67      0.67      0.67      0.58         0.01
+  C37                         0.66      0.67      0.66      0.58         0.08
+  C38                         0.67      0.67      0.67      0.67         0.09
+  C39                         0.66      0.67      0.66      0.01         0.08
+  C40                         0.67      0.67      0.67      0.58         0.09
+  C41                         0.67      0.67      0.67      0.67         0.09
+  C43                         0.67      0.67      0.67      0.67         0.09
+  C44                         0.67      0.67      0.67      0.67         0.09
+  C45                         0.65      0.67      0.65      0.67         0.01
+  C46                         0.65      0.65      0.65      0.02         0.01
+  C48                         0.67      0.67      0.67      0.67         0.01
+  C42                         0.65      0.67      0.65      0.67         0.01
+  C50                         0.67      0.67      0.67      0.67         0.09
+  C49                         0.67      0.67      0.67      0.67         0.09
+  C01                         0.67      0.67      0.67      0.67         0.01
+  C02                         0.67      0.67      0.67      0.58         0.01
+  C03                         0.67      0.67      0.67      0.58         0.02
+  C04                         0.66      0.67      0.66      0.58         0.01
+  C05                         0.57      0.66      0.57      0.58         0.01
+  C06                         0.65      0.67      0.65      0.67         0.08
+  C07                         0.65      0.67      0.65      0.67         0.08
+  C08                         0.65      0.65      0.65      0.58         0.08
+  C09                         0.67      0.67      0.67      0.58         0.10
+  C10                         0.65      0.65      0.67      0.67         0.09
+  C11                         0.65      0.65      0.67      0.67         0.09
+  C12                         0.67      0.67      0.67      0.58         0.15
+  C13                         0.65      0.66      0.66      0.58         0.30
+  C14                         0.67      0.67      0.67      0.36         0.07
+  C15                         0.66      0.67      0.66      0.67         0.22
+  C16                         0.56      0.57      0.65      0.58         0.01
+  C17                         0.66      0.67      0.66      0.20         0.08
+  C18                         0.67      0.67      0.67      0.67         0.01
+  C19                         0.65      0.65      0.66      0.58         0.08
+  C20                         0.66      0.66      0.67      0.67         0.08
+  C21                         0.66      0.66      0.67      0.67         0.08
+  C22                         0.66      0.66      0.67      0.66         0.01
+  C47                         0.65      0.67      0.65      0.66         0.01
+  Cout                        0.01      0.67      0.01      0.67         0.01
+  
+  
+  ***************
+  Pumping Summary
+  ***************
+  
+  ---------------------------------------------------------------------------------------------------------
+                                                  Min       Avg       Max     Total     Power    % Time Off
+                        Percent   Number of      Flow      Flow      Flow    Volume     Usage    Pump Curve
+  Pump                 Utilized   Start-Ups       CMS       CMS       CMS  10^6 ltr     Kw-hr    Low   High
+  ---------------------------------------------------------------------------------------------------------
+  P1                       0.00           0      0.00      0.00      0.00     0.000      0.00    0.0    0.0
+  
+
+  Analysis begun on:  Thu Nov 21 12:17:24 2024
+  Analysis ended on:  Thu Nov 21 12:17:24 2024
+  Total elapsed time: < 1 sec

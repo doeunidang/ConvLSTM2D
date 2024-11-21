@@ -44,7 +44,7 @@ for inp_file in inp_files:
                 for junction_id in junction_ids:
                     node = nodes[junction_id]
                     # flooding 값을 소숫점 둘째 자리까지만 표시하고 float 형식으로 저장
-                    row.append(round(node.flooding, 2))
+                    row.append(round(node.flooding, 3))
                 results.append(row)
                 # 다음 기록 시간을 10분 후로 설정
                 next_record_time += timedelta(minutes=10)
