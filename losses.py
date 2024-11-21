@@ -13,11 +13,7 @@ def custom_loss(y_true, y_pred):
     masked_y_true = y_true * mask
     masked_y_pred = y_pred * mask
 
-    # 절댓값 오차 계산
     absolute_difference = tf.abs(masked_y_true - masked_y_pred)
     masked_absolute_difference = absolute_difference * mask  
 
-    # MAE 계산
     return tf.reduce_sum(masked_absolute_difference) / (tf.reduce_sum(mask) + tf.keras.backend.epsilon())
-
-
