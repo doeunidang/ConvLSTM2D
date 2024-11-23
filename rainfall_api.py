@@ -68,68 +68,51 @@ def calculate_10min_rainfall(rainfall_data, target_times):
         t_minus_10 = t - timedelta(minutes=10)
         if t in rainfall_data and t_minus_10 in rainfall_data:
             ten_min_rainfall = max(0, rainfall_data[t] - rainfall_data[t_minus_10])
-            ten_min_rainfalls.append((t.strftime("%Y-%m-%d %H:%M"), ten_min_rainfall))
+            ten_min_rainfalls.append(ten_min_rainfall)
         else:
-            ten_min_rainfalls.append((t.strftime("%Y-%m-%d %H:%M"), None))  # 데이터가 없을 경우 None 처리
+            ten_min_rainfalls.append(0)  # 데이터 없음도 0으로 처리
     return ten_min_rainfalls
 
-def generate_numpy_arrays(ten_min_rainfalls, grid_shape=(64, 64, 1)):
+def create_numpy_array(ten_min_rainfalls):
     """
-    10분 누적 강수량 데이터를 (64, 64, 1) 형태의 numpy 배열로 변환하고,
-    이를 합쳐 (4, 64, 64, 1) 형태의 numpy 배열로 생성합니다.
+    10분 누적 강수량 데이터를 기반으로 (4, 64, 64, 1) 형태의 numpy 배열을 생성합니다.
     """
-    arrays = []
-    for _, value in ten_min_rainfalls:
-        if value is not None:
-            # (64, 64, 1) 형태로 생성
-            grid_array = np.full(grid_shape, value, dtype=np.float32)
-            arrays.append(grid_array)
-        else:
-            # 데이터가 없으면 0으로 채움
-            grid_array = np.full(grid_shape, 0, dtype=np.float32)
-            arrays.append(grid_array)
-
-    # (4, 64, 64, 1) 형태로 변환
-    final_array = np.stack(arrays, axis=0)
-    return final_array
+    grid_shape = (64, 64, 1)
+    input_data = np.zeros((4, *grid_shape))
+    for i, rainfall in enumerate(ten_min_rainfalls):
+        input_data[i, :, :, 0] = rainfall  # 64x64 grid에 동일한 강수량 적용
+    return input_data
 
 def main():
     """
-    2022년 8월 19일 16:40부터 17:20까지의 데이터를 가져오고,
+    현재 시간 - 1분을 기준으로 40분 데이터를 가져오고,
     주어진 시점의 10분 누적 강수량을 계산합니다.
     """
-    # 시작 시간과 끝 시간 설정
-    start_time = datetime(2022, 8, 19, 16, 40, tzinfo=kst)
-    end_time = datetime(2022, 8, 19, 17, 20, tzinfo=kst)
+    # 현재 시간 - 1분 기준으로 시간 설정
+    now = datetime.now(kst) - timedelta(minutes=1)
+    start_time = now - timedelta(minutes=40)
+    end_time = now
 
     # 타겟 시간 (10분 간격)
     target_times = [
-        datetime(2022, 8, 19, 16, 50, tzinfo=kst),
-        datetime(2022, 8, 19, 17, 0, tzinfo=kst),
-        datetime(2022, 8, 19, 17, 10, tzinfo=kst),
-        datetime(2022, 8, 19, 17, 20, tzinfo=kst),
+        now - timedelta(minutes=30),
+        now - timedelta(minutes=20),
+        now - timedelta(minutes=10),
+        now
     ]
 
     # AWS 데이터 가져오기
     rainfall_data = fetch_aws_data(start_time, end_time)
-    print(f"RN-DAY 데이터: {rainfall_data}")
 
     # 10분 누적 강수량 계산
     ten_min_rainfalls = calculate_10min_rainfall(rainfall_data, target_times)
-    for time, value in ten_min_rainfalls:
-        if value is not None:
-            print(f"{time} - 10분 누적 강수량: {value:.1f} mm")
-        else:
-            print(f"{time} - 데이터 없음")
+    print("10분 누적 강수량:")
+    for t, value in zip(target_times, ten_min_rainfalls):
+        print(f"{t.strftime('%Y-%m-%d %H:%M')} - {value:.1f} mm")
 
-    # numpy 배열 생성
-    final_array = generate_numpy_arrays(ten_min_rainfalls)
-    print(f"최종 numpy 배열 형태: {final_array.shape}")
-    print(f"최종 numpy 배열 내용:\n{final_array}")
-
-    # numpy 파일 저장
-    np.save("rainfall_data.npy", final_array)
-    print("numpy 배열이 'rainfall_data.npy'로 저장되었습니다.")
+    # (4, 64, 64, 1) 형태의 numpy 배열 생성
+    input_data = create_numpy_array(ten_min_rainfalls)
+    print(f"생성된 numpy 배열의 형태: {input_data.shape}")
 
 if __name__ == "__main__":
     main()
