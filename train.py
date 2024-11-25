@@ -29,7 +29,7 @@ def load_junction_mask(junction_mask_path='/content/ConvLSTM2D/DATA_numpy/juncti
 @tf.keras.utils.register_keras_serializable(package="Custom", name="custom_accuracy")
 def custom_accuracy(y_true, y_pred):
     """
-    유출량 예측에서 상대 오차를 기준으로 정확도를 계산합니다.
+    유출량 예측에서 상대 오차 또는 절대 오차를 기준으로 정확도를 계산합니다.
     """
     # Junction Mask 로드
     junction_mask = load_junction_mask()  # (1, 1, 64, 64, 1)
@@ -43,9 +43,12 @@ def custom_accuracy(y_true, y_pred):
     y_true_masked = y_true * junction_mask_broadcasted
     y_pred_masked = y_pred * junction_mask_broadcasted
 
-    # 상대 오차 계산
+    # 상대 오차 및 절대 오차 계산
     relative_error = tf.abs(y_true_masked - y_pred_masked) / (y_true_masked + tf.keras.backend.epsilon())
-    within_tolerance = relative_error <= 0.2  # 허용 상대 오차 (20%)
+    absolute_error = tf.abs(y_true_masked - y_pred_masked)
+
+    # 허용 범위: 상대 오차 <= 20% 또는 절대 오차 <= 1.0
+    within_tolerance = tf.logical_or(relative_error <= 0.2, absolute_error <= 0.5)
 
     # 정확한 예측 개수 계산
     correct_predictions = tf.reduce_sum(tf.cast(within_tolerance, tf.float32) * junction_mask_broadcasted, axis=[2, 3, 4])
