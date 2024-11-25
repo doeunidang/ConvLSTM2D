@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import timedelta
 
 # 엑셀 파일 불러오기
-file_path = 'F:\\ConvLSTM2D_git\\ConvLSTM2D\\SWMM_inp\\강우사상_1000개.xlsx'
+file_path = 'F:\\ConvLSTM2D_git\\ConvLSTM2D\\SWMM_inp\\강우사상_500개.xlsx'
 df = pd.read_excel(file_path)
 
 # 엑셀 파일의 열 이름 출력 (강우사상이 있는 열을 확인)
