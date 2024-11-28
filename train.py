@@ -6,7 +6,6 @@ from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
 from model import build_convlstm_model
 from utils import load_train_val_data
-from losses import custom_loss
 
 # XLA JIT 및 MLIR 비활성화
 os.environ["TF_XLA_FLAGS"] = "--tf_xla_enable_xla_devices=0"
@@ -25,6 +24,24 @@ def load_junction_mask(junction_mask_path='/content/ConvLSTM2D/DATA_numpy/juncti
     junction_mask = tf.expand_dims(junction_mask, axis=0)  # 시간 차원 추가
     junction_mask = tf.expand_dims(junction_mask, axis=-1)  # 채널 차원 추가
     return junction_mask  # (1, 1, 64, 64, 1)
+
+@tf.keras.utils.register_keras_serializable(package="Custom", name="custom_mae_loss")
+def custom_loss(y_true, y_pred):
+    junction_mask = np.load('/content/ConvLSTM2D/DATA_numpy/junction_mask.npy')
+    junction_mask = tf.convert_to_tensor(junction_mask, dtype=tf.float32)
+    expanded_mask = tf.expand_dims(junction_mask, axis=0)
+    expanded_mask = tf.expand_dims(expanded_mask, axis=0)
+    expanded_mask = tf.expand_dims(expanded_mask, axis=-1)
+    mask = tf.tile(expanded_mask, [tf.shape(y_true)[0], tf.shape(y_true)[1], 1, 1, 1])
+
+    masked_y_true = y_true * mask
+    masked_y_pred = y_pred * mask
+
+    absolute_difference = tf.abs(masked_y_true - masked_y_pred)
+    masked_absolute_difference = absolute_difference * mask  
+
+    return tf.reduce_sum(masked_absolute_difference) / (tf.reduce_sum(mask) + tf.keras.backend.epsilon())
+
 
 @tf.keras.utils.register_keras_serializable(package="Custom", name="custom_accuracy")
 def custom_accuracy(y_true, y_pred):

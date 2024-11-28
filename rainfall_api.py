@@ -26,18 +26,11 @@ def fetch_aws_data(start_time, end_time):
     
     full_url = f"{API_URL}{tm1}&{tm2}&{stn}&{disp}&{help_flag}&{auth}"
 
-    print(f"API 호출 URL: {full_url}")
-
     try:
         # API 호출
         with urlopen(full_url) as response:
             # EUC-KR 인코딩으로 응답을 디코딩
             data = response.read().decode('euc-kr')
-            print(f"응답 데이터:\n{data}")
-
-            # 데이터가 비어 있는지 확인
-            if "준비중입니다" in data or "잘못 입력" in data:
-                raise ValueError("API URL이 올바르지 않거나 데이터가 존재하지 않습니다.")
 
             # 데이터 처리
             lines = data.split("\n")
@@ -46,13 +39,11 @@ def fetch_aws_data(start_time, end_time):
                 if line.strip() and not line.startswith("#"):  # 데이터 줄 필터링
                     columns = line.split()  # 공백을 기준으로 분리
                     if len(columns) >= 13:  # 최소 13열 필요
-                        timestamp = datetime.strptime(columns[0], "%Y%m%d%H%M").replace(tzinfo=kst)
+                        # 데이터 포맷을 "YYYYMMDDHHMI" 형식으로 변환
+                        timestamp_str = columns[0]
                         rn_day = float(columns[12])  # 13번째 열: RN-DAY
-                        rainfall_data[timestamp] = rn_day
+                        rainfall_data[timestamp_str] = rn_day
 
-            if not rainfall_data:
-                raise ValueError("RN-DAY 데이터를 찾을 수 없습니다.")
-            
             return rainfall_data
 
     except Exception as e:
@@ -63,14 +54,19 @@ def calculate_10min_rainfall(rainfall_data, target_times):
     """
     주어진 시간에 대해 10분 누적 강수량을 계산합니다.
     """
+    # target_times를 "YYYYMMDDHHMI" 형식으로 변환
+    target_times_str = [t.strftime("%Y%m%d%H%M") for t in target_times]
+
     ten_min_rainfalls = []
-    for t in target_times:
-        t_minus_10 = t - timedelta(minutes=10)
-        if t in rainfall_data and t_minus_10 in rainfall_data:
-            ten_min_rainfall = max(0, rainfall_data[t] - rainfall_data[t_minus_10])
-            ten_min_rainfalls.append(ten_min_rainfall)
+    for i, t_str in enumerate(target_times_str):
+        t_minus_10_str = (target_times[i] - timedelta(minutes=10)).strftime("%Y%m%d%H%M")
+
+        if t_str in rainfall_data and t_minus_10_str in rainfall_data:
+            ten_min_rainfall = max(0, rainfall_data[t_str] - rainfall_data[t_minus_10_str])
+            ten_min_rainfalls.append((t_str, ten_min_rainfall))
         else:
-            ten_min_rainfalls.append(0)  # 데이터 없음도 0으로 처리
+            ten_min_rainfalls.append((t_str, None))  # 데이터가 없을 경우 None 처리
+
     return ten_min_rainfalls
 
 def create_numpy_array(ten_min_rainfalls):
@@ -79,8 +75,9 @@ def create_numpy_array(ten_min_rainfalls):
     """
     grid_shape = (64, 64, 1)
     input_data = np.zeros((4, *grid_shape))
-    for i, rainfall in enumerate(ten_min_rainfalls):
-        input_data[i, :, :, 0] = rainfall  # 64x64 grid에 동일한 강수량 적용
+    for i, (_, rainfall) in enumerate(ten_min_rainfalls):
+        if rainfall is not None:
+            input_data[i, :, :, 0] = rainfall  # 64x64 grid에 동일한 강수량 적용
     return input_data
 
 def main():
@@ -90,6 +87,8 @@ def main():
     """
     # 현재 시간 - 1분 기준으로 시간 설정
     now = datetime.now(kst) - timedelta(minutes=1)
+
+    # 시작 및 끝 시간 생성
     start_time = now - timedelta(minutes=40)
     end_time = now
 
@@ -106,13 +105,17 @@ def main():
 
     # 10분 누적 강수량 계산
     ten_min_rainfalls = calculate_10min_rainfall(rainfall_data, target_times)
-    print("10분 누적 강수량:")
-    for t, value in zip(target_times, ten_min_rainfalls):
-        print(f"{t.strftime('%Y-%m-%d %H:%M')} - {value:.1f} mm")
+    print("\n10분 누적 강수량:")
+    for t, value in ten_min_rainfalls:
+        if value is not None:
+            print(f"{t} - {value:.1f} mm")
+        else:
+            print(f"{t} - 데이터 없음")
+
 
     # (4, 64, 64, 1) 형태의 numpy 배열 생성
     input_data = create_numpy_array(ten_min_rainfalls)
-    print(f"생성된 numpy 배열의 형태: {input_data.shape}")
+    print(f"\n생성된 numpy 배열의 형태: {input_data.shape}")
 
 if __name__ == "__main__":
     main()
