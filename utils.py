@@ -4,8 +4,8 @@ import os
 output_folder = '/content/ConvLSTM2D/DATA_numpy'
 
 def load_train_val_data():
-    train_indices = list(range(1, 81)) + list(range(101, 601)) + list(range(701, 781)) + list(range(801, 901))  # 학습 데이터
-    val_indices = list(range(81, 101)) + list(range(601, 701)) + list(range(781, 801)) + list(range(901, 1001))  # 검증 데이터
+    train_indices = list(range(1, 81)) + list(range(101, 601)) + list(range(701, 781)) + list(range(901, 1001))  # 학습 데이터
+    val_indices = list(range(81, 101)) + list(range(601, 701)) + list(range(781, 801)) + list(range(801, 901))  # 검증 데이터
     X_train, y_train = concatenate_npy_files(train_indices)
     X_val, y_val = concatenate_npy_files(val_indices)
     return X_train, y_train, X_val, y_val
